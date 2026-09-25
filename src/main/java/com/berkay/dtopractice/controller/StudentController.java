@@ -100,4 +100,20 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getallStudents(pageable));
         /// GET /students?page=0&size=10
     }
+    @GetMapping("/department/{department}")
+    public ResponseEntity<List<StudentResponse>> getStudentsByDepartment(
+            @PathVariable String department) {
+
+        return ResponseEntity.ok(
+                studentService.getStudentsByDepartment(department)
+        );
+    }
+    @GetMapping("/department-jpql/{department}")
+    public ResponseEntity<List<StudentResponse>> getStudentsByDepartmentJpql(
+            @PathVariable String department) {
+
+        return ResponseEntity.ok(
+                studentService.getStudentsByDepartmentJpql(department)
+        );
+    }
 }

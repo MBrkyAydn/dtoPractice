@@ -118,5 +118,16 @@ public class StudentService {
 
 
     }
-
+    public List<StudentResponse> getStudentsByDepartment(String department) {
+        return studentRepository.findByDepartment(department)
+                .stream()
+                .map(studentMapper::toResponse)
+                .toList();
+    }
+    public List<StudentResponse> getStudentsByDepartmentJpql(String department) {
+        return studentRepository.findByDepartmentJpql(department)
+                .stream()
+                .map(studentMapper::toResponse)
+                .toList();
+    }
 }

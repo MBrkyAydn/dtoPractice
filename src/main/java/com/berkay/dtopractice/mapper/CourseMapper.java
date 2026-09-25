@@ -3,9 +3,7 @@ package com.berkay.dtopractice.mapper;
 
 import com.berkay.dtopractice.dto.CourseRequest;
 import com.berkay.dtopractice.dto.CourseResponse;
-import com.berkay.dtopractice.dto.StudentRequest;
 import com.berkay.dtopractice.entity.Course;
-import com.berkay.dtopractice.entity.Student;
 import org.springframework.stereotype.Component;
 
 @Component
