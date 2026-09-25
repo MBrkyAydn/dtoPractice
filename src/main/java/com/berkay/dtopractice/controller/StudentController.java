@@ -33,7 +33,7 @@ public class StudentController {
             return ResponseEntity.status(HttpStatus.FOUND).body(responses);
 
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responses);
+        return ResponseEntity.notFound().build();
 
 
     }
@@ -48,5 +48,31 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentResponse> getStudentById(@PathVariable Integer id) {
 
+        StudentResponse response = studentService.findById(id);
+        if (response != null) {
+            return ResponseEntity.status(HttpStatus.FOUND).body(response);
+        }
+        return ResponseEntity.notFound().build();
+
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<StudentResponse> patchStudent(@PathVariable Integer id, @RequestBody StudentRequest studentRequest) {
+        StudentResponse response = studentService.updateParty(id, studentRequest);
+        if (response != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable Integer id) {
+        studentService.deleteStudent(id);
+        return ResponseEntity.noContent().build();
+
+
+    }
 }

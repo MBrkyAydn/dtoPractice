@@ -6,6 +6,7 @@ import com.berkay.dtopractice.dto.StudentResponse;
 import com.berkay.dtopractice.mapper.StudentMapper;
 
 import com.berkay.dtopractice.repository.StudentRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +39,7 @@ public class StudentService {
         List<Student> students = studentRepository.findAll();
         return students.stream().map(studentMapper::toResponse).toList();
     }
+
     public StudentResponse updateStudent(Integer id, StudentRequest studentRequest) {
         Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("student not found"));
         student.setName(studentRequest.getName());
@@ -49,4 +51,33 @@ public class StudentService {
 
 
     }
+
+    public StudentResponse findById(Integer id) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("student not found"));
+        return studentMapper.toResponse(student);
+
+    }
+
+    public StudentResponse updateParty(Integer id, StudentRequest studentRequest) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("student not found"));
+
+        if (studentRequest.getName() != null) {
+            student.setName(studentRequest.getName());
+        }
+        if (studentRequest.getEmail() != null) {
+            student.setEmail(studentRequest.getEmail());
+
+        }
+        if (studentRequest.getDepartment() != null) {
+            student.setDepartment(studentRequest.getDepartment());
+        }
+        Student update = studentRepository.save(student);
+        return studentMapper.toResponse(update);
+    }
+public void deleteStudent(Integer id) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("student not found"));
+        studentRepository.delete(student);
+
+}
+
 }
