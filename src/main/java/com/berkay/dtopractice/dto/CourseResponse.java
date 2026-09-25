@@ -4,11 +4,12 @@ package com.berkay.dtopractice.dto;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jdk.jshell.Snippet;
+import lombok.*;
 
+import java.time.LocalDateTime;
+
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,5 +22,9 @@ public class CourseResponse {
 
     private String title;
     private String description;
+
+        private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
 
 }

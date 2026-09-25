@@ -18,10 +18,12 @@ public class CourseMapper {
                 .build();
     }
 public CourseResponse toResponse(Course course) {
-        return Course.builder()
+        return CourseResponse.builder()
                 .id(course.getId())
                 .title(course.getTitle())
                 .description(course.getDescription())
+                .createdAt(course.getCreatedAt())
+                .updatedAt(course.getUpdatedAt())
                 .build();
 }
 }

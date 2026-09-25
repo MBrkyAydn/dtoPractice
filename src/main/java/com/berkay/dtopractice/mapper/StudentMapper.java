@@ -32,6 +32,8 @@ public class StudentMapper {
              .email(student.getEmail())
              .department(student.getDepartment())
              .courses(student.getCourses().stream().map(courseMapper::toResponse).toList())
+             .createdAt(student.getCreatedAt())
+             .updatedAt(student.getUpdatedAt())
              .build();
 
  } // Studenten gelen veriyi to responone olarak tutar.
