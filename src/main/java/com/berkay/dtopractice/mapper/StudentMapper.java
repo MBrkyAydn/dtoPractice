@@ -1,8 +1,8 @@
 package com.berkay.dtopractice.mapper;
 
 import com.berkay.dtopractice.entity.Student;
-import com.berkay.dtopractice.entity.dto.StudentRequest;
-import com.berkay.dtopractice.entity.dto.StudentResponse;
+import com.berkay.dtopractice.dto.StudentRequest;
+import com.berkay.dtopractice.dto.StudentResponse;
 import org.springframework.stereotype.Component;
 
 @Component // sınıfı spring BEan olarak yönetsin

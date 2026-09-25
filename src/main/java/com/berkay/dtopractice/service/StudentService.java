@@ -1,8 +1,8 @@
 package com.berkay.dtopractice.service;
 
 import com.berkay.dtopractice.entity.Student;
-import com.berkay.dtopractice.entity.dto.StudentRequest;
-import com.berkay.dtopractice.entity.dto.StudentResponse;
+import com.berkay.dtopractice.dto.StudentRequest;
+import com.berkay.dtopractice.dto.StudentResponse;
 import com.berkay.dtopractice.mapper.StudentMapper;
 
 import com.berkay.dtopractice.repository.StudentRepository;
@@ -20,7 +20,8 @@ public class StudentService {
         this.studentRepository = studentRepository;
 
     }
-    public StudentResponse createStudent(StudentRequest  studentRequest) {
+
+    public StudentResponse createStudent(StudentRequest studentRequest) {
         Student student = studentMapper.toEntity(studentRequest);
         Student savedStudent = studentRepository.save(student);
         return studentMapper.toResponse(savedStudent);
@@ -32,8 +33,20 @@ public class StudentService {
         // student> savedStudent= studentRepository.save(student); > repositoryde kayıt edilir ve geriye döndürülen >>studentMapper.toResponse(savedStudent);
 
     }
-public List<StudentResponse> getallStudents(){
-    List<Student> students =studentRepository.findAll();
-    return students.stream().map(studentMapper::toResponse).toList();
-}
+
+    public List<StudentResponse> getallStudents() {
+        List<Student> students = studentRepository.findAll();
+        return students.stream().map(studentMapper::toResponse).toList();
+    }
+    public StudentResponse updateStudent(Integer id, StudentRequest studentRequest) {
+        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("student not found"));
+        student.setName(studentRequest.getName());
+        student.setEmail(studentRequest.getEmail());
+        student.setDepartment(studentRequest.getDepartment());
+
+        Student update = studentRepository.save(student);
+        return studentMapper.toResponse(update);
+
+
+    }
 }

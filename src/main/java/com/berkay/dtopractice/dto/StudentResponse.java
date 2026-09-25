@@ -1,4 +1,4 @@
-package com.berkay.dtopractice.entity.dto;
+package com.berkay.dtopractice.dto;
 
 import lombok.*;
 
