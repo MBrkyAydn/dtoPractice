@@ -10,6 +10,12 @@ import org.springframework.stereotype.Component;
 
 public class StudentMapper {
 
+    private final CourseMapper courseMapper;
+
+    public StudentMapper(CourseMapper courseMapper) {
+        this.courseMapper = courseMapper;
+    }
+
     public Student toEntity(StudentRequest studentRequest) {
         return Student.builder()
                 .name(studentRequest.getName())
@@ -25,6 +31,7 @@ public class StudentMapper {
              .name(student.getName())
              .email(student.getEmail())
              .department(student.getDepartment())
+             .courses(student.getCourses().stream().map(courseMapper::toResponse).toList())
              .build();
 
  } // Studenten gelen veriyi to responone olarak tutar.

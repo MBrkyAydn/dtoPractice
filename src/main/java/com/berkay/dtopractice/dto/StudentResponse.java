@@ -2,6 +2,8 @@ package com.berkay.dtopractice.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -13,4 +15,5 @@ public class StudentResponse {
     private String name;
     private String email;
     private String department;
+private List<CourseResponse> courses;
 }

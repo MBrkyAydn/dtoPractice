@@ -75,4 +75,22 @@ public class StudentController {
 
 
     }
+
+    @PostMapping("/{studentId}/courses/{courseId}")
+    public ResponseEntity<StudentResponse> addCourseToStudent(
+            @PathVariable Integer studentId,
+            @PathVariable Integer courseId) {
+
+        StudentResponse response =
+                studentService.addCourseToStudent(studentId, courseId);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{studentid}/courses/{courseid}")
+    public ResponseEntity<StudentResponse> deleteCourseFromStudent(@PathVariable Integer studentid, @PathVariable Integer courseid) {
+
+        StudentResponse response = studentService.deleteCourseFromStudent(studentid, courseid);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }

@@ -1,10 +1,10 @@
 package com.berkay.dtopractice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,6 +20,11 @@ public class Student {
     private String name;
     private String email;
     private String department;
+@Builder.Default
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "student_courses", joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
+    private List<Course> courses = new ArrayList<>();
 
 
 }
