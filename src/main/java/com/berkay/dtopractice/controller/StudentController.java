@@ -3,6 +3,8 @@ package com.berkay.dtopractice.controller;
 import com.berkay.dtopractice.dto.StudentRequest;
 import com.berkay.dtopractice.dto.StudentResponse;
 import com.berkay.dtopractice.service.StudentService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,8 +29,8 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StudentResponse>> getAllStudents() {
-        List<StudentResponse> responses = studentService.getallStudents();
+    public ResponseEntity<List<StudentResponse>> getAllStu() {
+        List<StudentResponse> responses = studentService.getAllStu();
         if (!responses.isEmpty()) {
             return ResponseEntity.status(HttpStatus.FOUND).body(responses);
 
@@ -92,5 +94,10 @@ public class StudentController {
 
         StudentResponse response = studentService.deleteCourseFromStudent(studentid, courseid);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+    @GetMapping
+    public ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable) {
+        return ResponseEntity.ok(studentService.getallStudents(pageable));
+        /// GET /students?page=0&size=10
     }
 }

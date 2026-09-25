@@ -5,11 +5,12 @@ import com.berkay.dtopractice.entity.Student;
 import com.berkay.dtopractice.dto.StudentRequest;
 import com.berkay.dtopractice.dto.StudentResponse;
 import com.berkay.dtopractice.mapper.StudentMapper;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import com.berkay.dtopractice.repository.CourseRepository;
 import com.berkay.dtopractice.repository.StudentRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
@@ -17,12 +18,12 @@ import java.util.List;
 public class StudentService {
     private final StudentMapper studentMapper;
     private final StudentRepository studentRepository;
-private final CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
 
     public StudentService(StudentMapper studentMapper, StudentRepository studentRepository, CourseRepository courseRepository) {
         this.studentMapper = studentMapper;
         this.studentRepository = studentRepository;
-    this.courseRepository = courseRepository;
+        this.courseRepository = courseRepository;
     }
 
     public StudentResponse createStudent(StudentRequest studentRequest) {
@@ -39,9 +40,15 @@ private final CourseRepository courseRepository;
 
     }
 
-    public List<StudentResponse> getallStudents() {
-        List<Student> students = studentRepository.findAll();
+    public List<StudentResponse> getAllStu() {
+        List<Student> students =studentRepository.findAll();
         return students.stream().map(studentMapper::toResponse).toList();
+    }
+
+    public Page<StudentResponse> getallStudents(Pageable pageable) {
+
+        Page<Student> students = studentRepository.findAll(pageable);
+        return students.map(studentMapper::toResponse);
     }
 
     public StudentResponse updateStudent(Integer id, StudentRequest studentRequest) {
@@ -84,6 +91,7 @@ private final CourseRepository courseRepository;
         studentRepository.delete(student);
 
     }
+
     public StudentResponse addCourseToStudent(Integer studentId, Integer courseId) {
 
         Student student = studentRepository.findById(studentId)
@@ -98,15 +106,15 @@ private final CourseRepository courseRepository;
 
         return studentMapper.toResponse(updatedStudent);
     }
-    public  StudentResponse deleteCourseFromStudent(Integer studentId, Integer courseId) {
-         Student student =studentRepository.findById(studentId)
-                 .orElseThrow(() -> new RuntimeException("Student not found"));
-         Course course = courseRepository.findById(courseId)
-                 .orElseThrow(() -> new RuntimeException("Course not found"));
-         student.getCourses().remove(course);
-         Student updatedStudent = studentRepository.save(student);
-         return studentMapper.toResponse(updatedStudent);
 
+    public StudentResponse deleteCourseFromStudent(Integer studentId, Integer courseId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+        student.getCourses().remove(course);
+        Student updatedStudent = studentRepository.save(student);
+        return studentMapper.toResponse(updatedStudent);
 
 
     }

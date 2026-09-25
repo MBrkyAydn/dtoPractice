@@ -16,7 +16,7 @@ public class StudentResponse {
     private String name;
     private String email;
     private String department;
-private List<CourseResponse> courses;
-private LocalDateTime updatedAt;
-private LocalDateTime createdAt;
+    private List<CourseResponse> courses;
+    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt;
 }
