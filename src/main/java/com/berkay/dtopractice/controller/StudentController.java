@@ -28,17 +28,17 @@ public class StudentController {
 
     }
 
-    @GetMapping
-    public ResponseEntity<List<StudentResponse>> getAllStu() {
-        List<StudentResponse> responses = studentService.getAllStu();
-        if (!responses.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.FOUND).body(responses);
-
-        }
-        return ResponseEntity.notFound().build();
-
-
-    }
+//    @GetMapping
+//    public ResponseEntity<List<StudentResponse>> getAllStu() {
+//        List<StudentResponse> responses = studentService.getAllStu();
+//        if (!responses.isEmpty()) {
+//            return ResponseEntity.status(HttpStatus.FOUND).body(responses);
+//
+//        }
+//        return ResponseEntity.notFound().build();
+//
+//
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<StudentResponse> updateStudent(@PathVariable Integer id, @RequestBody StudentRequest studentRequest) {
