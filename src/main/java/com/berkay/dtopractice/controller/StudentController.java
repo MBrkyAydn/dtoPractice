@@ -47,7 +47,7 @@ public class StudentController {
             return ResponseEntity.status(HttpStatus.OK).body(response);
 
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
     @GetMapping("/{id}")
@@ -55,7 +55,7 @@ public class StudentController {
 
         StudentResponse response = studentService.findById(id);
         if (response != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.FOUND).body(response);
         }
         return ResponseEntity.notFound().build();
 
@@ -95,11 +95,11 @@ public class StudentController {
         StudentResponse response = studentService.deleteCourseFromStudent(studentid, courseid);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-//    @GetMapping
-//    public ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable) {
-//        return ResponseEntity.ok(studentService.getallStudents(pageable));
-//        /// GET /students?page=0&size=10
-//    }
+    @GetMapping
+    public ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable) {
+        return ResponseEntity.ok(studentService.getallStudents(pageable));
+        /// GET /students?page=0&size=10
+    }
     @GetMapping("/department/{department}")
     public ResponseEntity<List<StudentResponse>> getStudentsByDepartment(
             @PathVariable String department) {
