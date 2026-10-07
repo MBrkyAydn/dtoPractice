@@ -28,6 +28,7 @@ public class SecurityConfig {
 //                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 //                        .requestMatchers("/student/**").permitAll()
                                 .requestMatchers("/student").permitAll()
+                                .requestMatchers("/auth/register").permitAll()
                                 .requestMatchers("/student/1").hasRole("ADMIN")
                                 .anyRequest().authenticated()  ///student/1 endpoint'ine yalnızca ADMIN rolüne sahip kullanıcı girebilir.
                 )
