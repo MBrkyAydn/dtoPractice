@@ -1,5 +1,6 @@
 package com.berkay.dtopractice.controller;
 
+import com.berkay.dtopractice.dto.LoginRequest;
 import com.berkay.dtopractice.dto.RegisterRequest;
 import com.berkay.dtopractice.entity.User;
 import com.berkay.dtopractice.service.AuthService;
@@ -22,6 +23,11 @@ public class AuthController {
         authService.register(registerRequest);
         return ResponseEntity.ok("Kullanıcı oluşturuldu.");
 
+    }
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+        authService.login(loginRequest);
+        return ResponseEntity.ok("Bulundu");
     }
 
 }

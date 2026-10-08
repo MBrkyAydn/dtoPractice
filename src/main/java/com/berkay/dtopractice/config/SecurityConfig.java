@@ -2,7 +2,9 @@ package com.berkay.dtopractice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,7 +20,12 @@ public class SecurityConfig {
 
     }
 
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration configuration) throws Exception {
 
+        return configuration.getAuthenticationManager();
+    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -30,6 +37,7 @@ public class SecurityConfig {
                                 .requestMatchers("/student").permitAll()
                                 .requestMatchers("/auth/register").permitAll()
                                 .requestMatchers("/student/1").hasRole("ADMIN")
+                                .requestMatchers("/auth/login").permitAll()
                                 .anyRequest().authenticated()  ///student/1 endpoint'ine yalnızca ADMIN rolüne sahip kullanıcı girebilir.
                 )
                 .httpBasic(Customizer.withDefaults()); // UserDetailsService Beani gördüğünde
