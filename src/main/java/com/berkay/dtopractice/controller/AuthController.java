@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.berkay.dtopractice.dto.AuthResponse;
 
 @RestController
 @RequestMapping("/auth")
@@ -24,10 +25,17 @@ public class AuthController {
         return ResponseEntity.ok("Kullanıcı oluşturuldu.");
 
     }
+
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        authService.login(loginRequest);
-        return ResponseEntity.ok("Bulundu");
+    public ResponseEntity<AuthResponse> login(
+            @RequestBody LoginRequest loginRequest
+    ) {
+        String token = authService.login(loginRequest);
+
+        AuthResponse response = new AuthResponse(token);
+
+        return ResponseEntity.ok(response);
     }
+
 
 }
